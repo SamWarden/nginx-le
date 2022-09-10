@@ -6,7 +6,7 @@ services:
     image: umputun/nginx-le:latest
     hostname: nginx
     restart: unless-stopped
-    container_name: pnginx
+    container_name: nginx-le
 
     ports:
       - "80:80"
