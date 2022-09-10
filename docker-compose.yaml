@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  nginx:
+    build: .
+    image: umputun/nginx-le:latest
+    hostname: nginx
+    restart: unless-stopped
+    container_name: nginx-le
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl:rw
+      - ./nginx/conf:/etc/nginx/conf.d-le:ro # configuration folder, all files from it will be added
+      # - ./nginx/services.conf:/etc/nginx/service.conf
+      # - ./nginx/service-example-2.conf:/etc/nginx/service2.conf # more services, should be service*.conf
+      # - ./nginx/stream-example-2.conf:/etc/nginx/stream2.conf # more streams, should be stream*.conf
+      # - ./nginx/stream.conf:/etc/nginx/stream.conf.d-le # streams configuration folder, all files from it will be added
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    environment:
+      - TZ=UTC
+      - LETSENCRYPT=true
+      - LE_EMAIL=example@gmail.com
+      - LE_FQDN=example.com
+      #- SSL_CERT=le-crt.pem
+      #- SSL_KEY=le-key.pem
+      #- SSL_CHAIN_CERT=le-chain-crt.pem
+
+  hello-world:
+      image: jwilder/whoami
+      container_name: hello-world
+      hostname: hello-world
+      ports:
+        - "8000"
