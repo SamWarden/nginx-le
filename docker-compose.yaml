@@ -11,6 +11,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "8443:8443"
 
     volumes:
       - ./nginx/ssl:/etc/nginx/ssl:rw
@@ -34,6 +35,9 @@ services:
       #- SSL_CERT=le-crt.pem
       #- SSL_KEY=le-key.pem
       #- SSL_CHAIN_CERT=le-chain-crt.pem
+
+    depends_on:
+      - "hello-world"
 
   hello-world:
       image: jwilder/whoami
