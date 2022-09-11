@@ -27,14 +27,7 @@ services:
         max-size: "10m"
         max-file: "5"
 
-    environment:
-      - TZ=UTC
-      - LETSENCRYPT=true
-      - LE_EMAIL=example@gmail.com
-      - LE_FQDN=example.com
-      #- SSL_CERT=le-crt.pem
-      #- SSL_KEY=le-key.pem
-      #- SSL_CHAIN_CERT=le-chain-crt.pem
+    env_file: .env
 
     depends_on:
       - "hello-world"
