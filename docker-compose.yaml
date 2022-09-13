@@ -40,7 +40,7 @@ services:
       image: jwilder/whoami
       container_name: hello-world
       hostname: hello-world
-      ports:
+      expose:
         - "8000"
 
 networks:
